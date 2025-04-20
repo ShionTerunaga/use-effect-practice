@@ -13,6 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as ThirdImport } from './routes/third'
 import { Route as SecondImport } from './routes/second'
+import { Route as FourthImport } from './routes/fourth'
 import { Route as FirstImport } from './routes/first'
 import { Route as IndexImport } from './routes/index'
 
@@ -27,6 +28,12 @@ const ThirdRoute = ThirdImport.update({
 const SecondRoute = SecondImport.update({
   id: '/second',
   path: '/second',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const FourthRoute = FourthImport.update({
+  id: '/fourth',
+  path: '/fourth',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -60,6 +67,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FirstImport
       parentRoute: typeof rootRoute
     }
+    '/fourth': {
+      id: '/fourth'
+      path: '/fourth'
+      fullPath: '/fourth'
+      preLoaderRoute: typeof FourthImport
+      parentRoute: typeof rootRoute
+    }
     '/second': {
       id: '/second'
       path: '/second'
@@ -82,6 +96,7 @@ declare module '@tanstack/react-router' {
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/first': typeof FirstRoute
+  '/fourth': typeof FourthRoute
   '/second': typeof SecondRoute
   '/third': typeof ThirdRoute
 }
@@ -89,6 +104,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/first': typeof FirstRoute
+  '/fourth': typeof FourthRoute
   '/second': typeof SecondRoute
   '/third': typeof ThirdRoute
 }
@@ -97,22 +113,24 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/first': typeof FirstRoute
+  '/fourth': typeof FourthRoute
   '/second': typeof SecondRoute
   '/third': typeof ThirdRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/first' | '/second' | '/third'
+  fullPaths: '/' | '/first' | '/fourth' | '/second' | '/third'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/first' | '/second' | '/third'
-  id: '__root__' | '/' | '/first' | '/second' | '/third'
+  to: '/' | '/first' | '/fourth' | '/second' | '/third'
+  id: '__root__' | '/' | '/first' | '/fourth' | '/second' | '/third'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FirstRoute: typeof FirstRoute
+  FourthRoute: typeof FourthRoute
   SecondRoute: typeof SecondRoute
   ThirdRoute: typeof ThirdRoute
 }
@@ -120,6 +138,7 @@ export interface RootRouteChildren {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FirstRoute: FirstRoute,
+  FourthRoute: FourthRoute,
   SecondRoute: SecondRoute,
   ThirdRoute: ThirdRoute,
 }
@@ -136,6 +155,7 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/first",
+        "/fourth",
         "/second",
         "/third"
       ]
@@ -145,6 +165,9 @@ export const routeTree = rootRoute
     },
     "/first": {
       "filePath": "first.tsx"
+    },
+    "/fourth": {
+      "filePath": "fourth.tsx"
     },
     "/second": {
       "filePath": "second.tsx"
