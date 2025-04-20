@@ -10,6 +10,14 @@ export const paths: Array<Path> = [
   },
   {
     href: '/first',
-    name: 'part1-1',
+    name: 'part1',
+  },
+  {
+    href: '/second',
+    name: 'part2',
+  },
+  {
+    href: '/third',
+    name: 'part3',
   },
 ]
